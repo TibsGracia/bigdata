@@ -16,8 +16,7 @@ import approvedRequest from "@/views/ApprovedRequests.vue";
 import rejectedRequest from "@/views/RejectedRequests.vue";
 Vue.use(VueRouter);
 /* eslint-disable */
-const routes = [
-    {
+const routes = [{
         path: "/",
         name: "login",
         component: Login
@@ -62,7 +61,7 @@ const routes = [
     },
     {
         path: "/unread-request",
-        name:"unread",
+        name: "unread",
         component: unreadRequest,
         meta: {
             requiresAuth: true
@@ -70,7 +69,7 @@ const routes = [
     },
     {
         path: "/pending-request",
-        name:"pending",
+        name: "pending",
         component: pendingRequest,
         meta: {
             requiresAuth: true
@@ -78,7 +77,7 @@ const routes = [
     },
     {
         path: "/approved-request",
-        name:"approved",
+        name: "approved",
         component: approvedRequest,
         meta: {
             requiresAuth: true
@@ -86,7 +85,7 @@ const routes = [
     },
     {
         path: "/rejected-request",
-        name:"rejected",
+        name: "rejected",
         component: rejectedRequest,
         meta: {
             requiresAuth: true
@@ -98,7 +97,7 @@ const routes = [
     },
     {
         path: '*',
-        name:"notfound",
+        name: "notfound",
         component: Notfound
     }
 ];

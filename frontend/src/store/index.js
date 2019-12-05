@@ -17,7 +17,7 @@ export default new Vuex.Store({
         },
         auth_success(state, token) {
             state.status = "success";
-            state.token = token;   
+            state.token = token;
         },
         auth_error(state) {
             state.status = "error";
@@ -26,14 +26,14 @@ export default new Vuex.Store({
             state.status = null;
             state.token = null;
         },
-        auth_isStudent(state, isStudent){
+        auth_isStudent(state, isStudent) {
             state.isStudent = isStudent
         },
-        auth_permission(state, permission){
+        auth_permission(state, permission) {
             state.permission = permission
         }
     },
-    
+
     actions: {
         login({
             commit
