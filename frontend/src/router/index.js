@@ -39,6 +39,7 @@ const routes = [
     },
     {
         path: "/student/:batchnum",
+        name:"student",
         component: Student,
         props: true,
         beforeEnter(to, from, next) {

@@ -27,6 +27,7 @@
     </v-app-bar>
     <v-content>
       <div v-if="isLoggedIn && !isStudent">
+      <!-- <div v-if="isLoggedIn && this.$route.name!='student'"> -->
         <div v-if="resized && !isStudent">
           <v-navigation-drawer v-model="drawer" absolute left temporary>
             <Resizedbar />
@@ -39,7 +40,7 @@
         </div>
         <div v-else>
           <v-row>
-            <v-col cols="3" v-if="isLoggedIn">
+            <v-col cols="3" v-if="isLoggedIn && this.$route.name!='student'">
               <Sidebar />
             </v-col>
             <v-col class="text-center">
@@ -90,9 +91,17 @@ export default {
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
     },
-    isStudent: function() {
-      return this.$store.getters.isStudent;
+    isStudent:{
+      get: function() {
+        return this.$store.getters.isStudent;
+      },
+      set: function (){
+        console.log("ok")
+      }
     },
+    // isStudent: function() {
+    //   return this.$store.getters.isStudent;
+    // },
     permission: function() {
       return this.$store.getters.permission;
     }
