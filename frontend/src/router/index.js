@@ -8,17 +8,18 @@ import Sockets from '../modules/sample.vue'
 import Educator from '../views/Educator.vue'
 import Student from '../modules/geneva/Form.vue'
 import Requests from '../modules/tibs/RequestContainer.vue'
+import RequestTable from '../modules/tibs/RequestTable.vue'
 import Mostly from '../modules/redgie/MostlyRequested.vue'
 import Stamp from '../modules/redgie/Stamp.vue'
 import unreadRequest from "@/views/UnreadRequests.vue";
+import test from "@/views/test.vue";
 import pendingRequest from "@/views/PendingRequests.vue";
 import approvedRequest from "@/views/ApprovedRequests.vue";
 import rejectedRequest from "@/views/RejectedRequests.vue";
 import Editpassword from '../modules/Kiray/Editpassword.vue'
 Vue.use(VueRouter);
 /* eslint-disable */
-const routes = [
-    {
+const routes = [{
         path: "/",
         name: "login",
         component: Login
@@ -39,7 +40,7 @@ const routes = [
     },
     {
         path: "/student/:batchnum",
-        name:"student",
+        name: "student",
         component: Student,
         props: true,
         beforeEnter(to, from, next) {
@@ -161,6 +162,16 @@ const routes = [
         path: "/editpassword",
         name: "editpassword",
         component: Editpassword
+    },
+    {
+        path: "/request-table",
+        name: "requestTable",
+        component: RequestTable
+    },
+    {
+        path: "/test",
+        name: "test",
+        component: test
     },
     {
         path: '/socket',
