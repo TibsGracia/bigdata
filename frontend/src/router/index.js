@@ -8,12 +8,15 @@ import Sockets from '../modules/sample.vue'
 import Educator from '../views/Educator.vue'
 import Student from '../modules/geneva/Form.vue'
 import Requests from '../modules/tibs/RequestContainer.vue'
+import RequestTable from '../modules/tibs/RequestTable.vue'
 import Mostly from '../modules/redgie/MostlyRequested.vue'
 import Stamp from '../modules/redgie/Stamp.vue'
 import unreadRequest from "@/views/UnreadRequests.vue";
+import test from "@/views/test.vue";
 import pendingRequest from "@/views/PendingRequests.vue";
 import approvedRequest from "@/views/ApprovedRequests.vue";
 import rejectedRequest from "@/views/RejectedRequests.vue";
+import Editpassword from '../modules/Kiray/Editpassword.vue'
 Vue.use(VueRouter);
 /* eslint-disable */
 const routes = [{
@@ -24,14 +27,29 @@ const routes = [{
     {
         path: "/educator",
         component: Educator,
+        beforeEnter(to, from, next) {
+            if (store.getters.isLoggedIn) {
+                next();
+            } else {
+                next("/");
+            }
+        },
         meta: {
             requiresAuth: true
         }
     },
     {
         path: "/student/:batchnum",
+        name: "student",
         component: Student,
         props: true,
+        beforeEnter(to, from, next) {
+            if (store.getters.isLoggedIn) {
+                next();
+            } else {
+                next("/");
+            }
+        },
         meta: {
             requiresAuth: true
         }
@@ -40,6 +58,13 @@ const routes = [{
         path: "/mostlyrequested",
         name: "mostly",
         component: Mostly,
+        beforeEnter(to, from, next) {
+            if (store.getters.isLoggedIn) {
+                next();
+            } else {
+                next("/");
+            }
+        },
         meta: {
             requiresAuth: true
         }
@@ -48,6 +73,13 @@ const routes = [{
         path: "/stamp",
         name: "stamp",
         component: Stamp,
+        beforeEnter(to, from, next) {
+            if (store.getters.isLoggedIn) {
+                next();
+            } else {
+                next("/");
+            }
+        },
         meta: {
             requiresAuth: true
         }
@@ -55,6 +87,13 @@ const routes = [{
     {
         path: "/requests",
         component: Requests,
+        beforeEnter(to, from, next) {
+            if (store.getters.isLoggedIn) {
+                next();
+            } else {
+                next("/");
+            }
+        },
         meta: {
             requiresAuth: true
         }
@@ -63,6 +102,13 @@ const routes = [{
         path: "/unread-request",
         name: "unread",
         component: unreadRequest,
+        beforeEnter(to, from, next) {
+            if (store.getters.isLoggedIn) {
+                next();
+            } else {
+                next("/");
+            }
+        },
         meta: {
             requiresAuth: true
         }
@@ -71,6 +117,13 @@ const routes = [{
         path: "/pending-request",
         name: "pending",
         component: pendingRequest,
+        beforeEnter(to, from, next) {
+            if (store.getters.isLoggedIn) {
+                next();
+            } else {
+                next("/");
+            }
+        },
         meta: {
             requiresAuth: true
         }
@@ -79,6 +132,13 @@ const routes = [{
         path: "/approved-request",
         name: "approved",
         component: approvedRequest,
+        beforeEnter(to, from, next) {
+            if (store.getters.isLoggedIn) {
+                next();
+            } else {
+                next("/");
+            }
+        },
         meta: {
             requiresAuth: true
         }
@@ -87,9 +147,31 @@ const routes = [{
         path: "/rejected-request",
         name: "rejected",
         component: rejectedRequest,
+        beforeEnter(to, from, next) {
+            if (store.getters.isLoggedIn) {
+                next();
+            } else {
+                next("/");
+            }
+        },
         meta: {
             requiresAuth: true
         }
+    },
+    {
+        path: "/editpassword",
+        name: "editpassword",
+        component: Editpassword
+    },
+    {
+        path: "/request-table",
+        name: "requestTable",
+        component: RequestTable
+    },
+    {
+        path: "/test",
+        name: "test",
+        component: test
     },
     {
         path: '/socket',
@@ -108,15 +190,15 @@ const router = new VueRouter({
     routes
 });
 
-router.beforeEach((to, from, next) => {
-    if (to.matched.some(route => route.meta.requiresAuth)) {
-        if (store.getters.isLoggedIn) {
-            next();
-        } else {
-            next({ path: "/" });
-        }
-    }
-    next();
-});
+// router.beforeEach((to, from, next) => {
+//     if (to.matched.some(route => route.meta.requiresAuth)) {
+//         if (store.getters.isLoggedIn) {
+//             next();
+//         } else {
+//             next({ path: "/" });
+//         }
+//     }
+//     next();
+// });
 
 export default router;

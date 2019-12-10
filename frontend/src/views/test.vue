@@ -9,24 +9,23 @@
       </center>
       <hr />
     </v-card> -->
-    <v-expansion-panels inset focusable>
-      <RequestCard
-        v-for="(request, index) in requests"
-        :request="request"
-        :key="index"
+ 
+      <RequestTable
+        
+        :request="requests"
         @remove="removeItem(request)"
       />
-    </v-expansion-panels>
+
   </div>
 </template>
 <script>
-import RequestCard from "../modules/tibs/RequestContainer.vue";
+import RequestTable from "../modules/tibs/RequestTable.vue";
 import { getPending } from "../actions/requestAxios.js";
 // import io from "socket.io-client";
 // var socket = io.connect("http://localhost:3232");
 export default {
   components: {
-    RequestCard
+    RequestTable
   },
   data() {
     return {

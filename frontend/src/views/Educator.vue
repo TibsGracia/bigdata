@@ -125,6 +125,11 @@ import {
   numApproved
 } from "../actions/requestAxios";
 import axios from "axios";
+<<<<<<< HEAD
+=======
+import io from "socket.io-client";
+var socket = io.connect("http://localhost:3232");
+>>>>>>> 0ce68e8af1a4ab4a62e00cdecde7dbd544f4ede8
 export default {
   name: "educator",
   data() {
@@ -136,19 +141,34 @@ export default {
       unread: 0,
       pending: 0,
       rejected: 0,
+<<<<<<< HEAD
       approved: 0
+=======
+      approved: 0,
+      base: "http://localhost:3232"
+>>>>>>> 0ce68e8af1a4ab4a62e00cdecde7dbd544f4ede8
     };
   },
   // mounted() {
   //   this.ihieght = window.innerHeight - window.innerHeight / 10;
   // },
   mounted() {
+<<<<<<< HEAD
     this.ihieght = window.innerHeight - window.innerHeight / 10;
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
 
     numUnread()
       .then(data => (this.unread = data.data))
+=======
+    this.isCutOff()
+    this.countEvent();
+    this.ihieght = window.innerHeight - window.innerHeight / 10;
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+    numUnread()
+      .then(data => {(this.unread = data.data)})
+>>>>>>> 0ce68e8af1a4ab4a62e00cdecde7dbd544f4ede8
       .catch(err => console.log(err));
     numPending()
       .then(data => (this.pending = data.data))
@@ -163,14 +183,24 @@ export default {
   destroyed() {
     window.removeEventListener("resize", this.handleResize);
   },
-
   methods: {
     isCutOff() {
       var date = new Date();
+<<<<<<< HEAD
       var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
       var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
       if (firstDay == date) {
         console.log("todaY");
+=======
+      var firstDayi = new Date(date.getFullYear(), date.getMonth(), 1);
+      var lastDayi = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+      if (firstDayi.toDateString() == date.toDateString()) {
+        axios.post('http://localhost:3232/cutoff', {firstDay:firstDayi, lastDay: lastDayi}).then(resp=>{
+          console.log("Saved on cut off")
+        }).catch(err=>{
+          console.log("Error on saving cut off")
+        })
+>>>>>>> 0ce68e8af1a4ab4a62e00cdecde7dbd544f4ede8
       } else {
         console.log("not today");
       }
@@ -194,13 +224,39 @@ export default {
     },
     getMost() {
       axios
+<<<<<<< HEAD
         .post("http://localhost:3232/mostRequest")
+=======
+        .post(`${this.base}/mostRequest`)
+>>>>>>> 0ce68e8af1a4ab4a62e00cdecde7dbd544f4ede8
         .then(resp => {
           console.log("resp", resp);
         })
         .catch(err => {
           console.log("err", err);
         });
+<<<<<<< HEAD
+=======
+    },
+    passdata(data) {
+      if(data.status == "unread"){
+        this.unread = data.count
+      }
+      if(data.status == "pending"){
+        this.unread = data.count
+      }
+      if(data.status == "approved"){
+        this.unread = data.count
+      }
+      if(data.status == "rejected"){
+        this.unread = data.count
+      }
+    },
+    countEvent() {
+      socket.on("countEvent", data => {
+        this.passdata(data);
+      });
+>>>>>>> 0ce68e8af1a4ab4a62e00cdecde7dbd544f4ede8
     }
   }
 };
