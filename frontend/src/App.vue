@@ -33,18 +33,18 @@
             <Resizedbar />
           </v-navigation-drawer>
           <center>
-            <div class="wt95">
+            <div class="">
               <router-view />
             </div>
           </center>
         </div>
         <div v-else>
           <v-row>
-            <v-col cols="3" v-if="isLoggedIn && this.$route.name!='student'">
-              <Sidebar />
-            </v-col>
+            <span v-if="isLoggedIn && this.$route.name!='student'">
+              <Sidebar/>
+            </span>
             <v-col class="text-center">
-              <div class="wt95">
+              <div class="">
                 <center>
                   <router-view />
                 </center>
