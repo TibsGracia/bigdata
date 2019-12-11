@@ -31,7 +31,13 @@ export default {
     return {
       sample: "sample",
       username: "redgie",
-      requests: []
+      requests: [{
+         firstnname: 'Renzy',
+          lastname: 'Verano',
+          category: "Personal",
+          when: "2019-12-15",
+          batch: 2021,
+      }]
     };
   },
   methods: {

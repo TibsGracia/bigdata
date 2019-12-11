@@ -41,7 +41,7 @@
         <div v-else>
           <v-row>
             <span v-if="isLoggedIn && this.$route.name!='student'">
-              <Sidebar/>
+              <!-- <Sidebar/> -->
             </span>
             <v-col class="text-center">
               <div class="">

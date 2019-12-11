@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer fixed permanent class="mt-cos">
+    <v-navigation-drawer fixed permanent absolute class="mt-cos">
       <v-card>
         <center>
           <div class="pt-5">

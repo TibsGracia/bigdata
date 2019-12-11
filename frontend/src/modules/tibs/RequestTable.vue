@@ -30,7 +30,77 @@
       <v-btn x-small color="secondary" dark>Approved</v-btn>
     </template>
     <template v-slot:item.info="{ item }">
-      <v-icon small>mdi-information</v-icon>
+      <!-- <v-icon small>mdi-information</v-icon> -->
+      <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on }">
+         <v-icon small  v-on="on">mdi-information</v-icon>
+         <!-- <v-btn
+          color="red lighten-2"
+          dark
+          v-on="on"
+        >
+          Click Me
+        </v-btn> -->
+      </template>
+
+      <v-card>
+        <!-- <v-card class="pa-4"> -->
+            <v-card-title class="black--text">
+              <v-list-item-avatar tile right size="62">
+                <img src="@/assets/pnlogo.png">
+              </v-list-item-avatar>
+              <span class="headline">Details</span>
+            </v-card-title>
+            <v-divider color="light-blue lighten-2"></v-divider>
+        <!-- <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          Privacy Policy
+        </v-card-title> -->
+
+        <v-list-item two-line>
+              <v-list-item-content>
+                <v-list-item-title>dsdsd</v-list-item-title>
+                <v-list-item-subtitle>Name</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item two-line>
+              <v-list-item-content>
+                <v-list-item-title>sdsds</v-list-item-title>
+                <v-list-item-subtitle>Email Address</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item two-line>
+              <v-list-item-content>
+                <v-list-item-title>sdsds</v-list-item-title>
+                <v-list-item-subtitle>Request</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item two-line>
+              <v-list-item-content>
+                <v-list-item-title>sdsds</v-list-item-title>
+                <v-list-item-subtitle>Notes</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog = false"
+          >
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     </template>
     
   </v-data-table>
@@ -45,7 +115,7 @@ export default {
     dialog: false,
     headers: [
       {
-        text: "Date Of Submittion",
+        text: "Date Of Submission",
         align: "left",
         value: "dateOfSubmit"
       },
