@@ -23,8 +23,10 @@
       </template>
       <template v-slot:item.info="{ item }">
         <v-icon small @click="dialog= true, details(item)">mdi-information</v-icon>
-        <v-dialog v-model="dialog" max-width="700px">
+        <v-dialog v-model="dialog" persistent max-width="600px">
           <v-card class="pa-6">
+        <v-icon class="float-right" large @click="dialog= false">mdi-window-close</v-icon>
+
             <v-card-title class="black--text">
               <v-list-item-avatar tile right size="62">
                 <img src="@/assets/pnlogo.png" />
@@ -61,7 +63,6 @@
               </v-list-item-content>
             </v-list-item>
             <!-- </v-card-text> -->
-            <v-divider></v-divider>
 
             <!-- <p class="font-italic body-2">Received:</p> -->
             <!-- <v-spacer></v-spacer> -->
