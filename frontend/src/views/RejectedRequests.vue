@@ -13,14 +13,14 @@
       <RequestTable
         
         :request="requests"
-    
+        :title="'Rejected Requests'"
         @remove="removeItem(request)"
       />
     <!-- </v-expansion-panels> -->
   </div>
 </template>
 <script>
-import RequestTable from "../modules/tibs/RequestTable.vue";
+import RequestTable from "../modules/tibs/RequestTableNoButtons.vue";
 import { getRejected } from "../actions/requestAxios.js";
 // import io from "socket.io-client";
 // var socket = io.connect("http://localhost:3232");

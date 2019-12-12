@@ -1,9 +1,26 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="request" class="elevation-1">
+    <v-data-table :headers="headers" :items="request" :search="search" class="elevation-1">
       <!-- <template v-slot:top> -->
 
       <!-- </template> -->
+       <template v-slot:top>
+        <v-toolbar flat class="ma-5 mb-12 pa-5">
+          <!-- <v-spacer></v-spacer> -->
+          <v-avatar tile right class="mr-2" size="62">
+            <img src="@/assets/pnlogo.png">
+          </v-avatar>
+          <v-toolbar-title class="text-center display-2">{{title}}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-toolbar>
+      </template>
       <template v-slot:item.info="{ item }">
         <v-icon small @click="dialog= true, details(item)">mdi-information</v-icon>
         <v-dialog v-model="dialog" max-width="700px">
@@ -97,7 +114,7 @@ import { updateRequest, updateWhy } from "@/actions/requestAxios.js";
 
 export default {
   // name: "RequestTable",
-  props: ["request"],
+  props: ["request", "title"],
   data: () => ({
     openDetails: false,
     search: "",
