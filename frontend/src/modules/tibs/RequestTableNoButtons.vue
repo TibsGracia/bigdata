@@ -108,7 +108,7 @@ export default {
       { text: "Category", value: "category" },
       { text: "Nedeed on", value: "when" },
       { text: "Batch", value: "batch" },
-      { text: "", value: "info", sortable: false }
+      { text: "Details", value: "info", sortable: false }
     ]
   }),
   mounted() {

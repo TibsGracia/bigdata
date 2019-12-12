@@ -149,7 +149,7 @@ export default {
       { text: "Nedeed on", value: "when" },
       { text: "Batch", value: "batch" },
       { text: "Actions", value: "action", sortable: false },
-      { text: "", value: "info", sortable: false }
+      { text: "Details", value: "info", sortable: false }
     ]
   }),
   mounted() {
