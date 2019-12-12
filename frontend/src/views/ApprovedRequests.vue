@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import RequestTable from "../modules/tibs/RequestTable.vue";
+import RequestTable from "../modules/tibs/RequestTableNoButtons.vue";
 import { getApproved } from "../actions/requestAxios.js";
 // import io from "socket.io-client";
 // var socket = io.connect("http://localhost:3232");
