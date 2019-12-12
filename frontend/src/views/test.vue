@@ -11,9 +11,7 @@
     </v-card> -->
  
       <RequestTable
-        
         :request="requests"
-        @remove="removeItem(request)"
       />
 
   </div>
