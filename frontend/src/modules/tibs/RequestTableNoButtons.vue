@@ -2,9 +2,7 @@
   <div>
     <v-data-table :headers="headers" :items="request" :search="search" class="elevation-1">
       <!-- <template v-slot:top> -->
-
-      <!-- </template> -->
-       <template v-slot:top>
+          <template v-slot:top>
         <v-toolbar flat class="ma-5 mb-12 pa-5">
           <!-- <v-spacer></v-spacer> -->
           <v-avatar tile right class="mr-2" size="62">
@@ -21,6 +19,7 @@
           ></v-text-field>
         </v-toolbar>
       </template>
+      <!-- </template> -->
       <template v-slot:item.info="{ item }">
         <v-icon small @click="dialog= true, details(item)">mdi-information</v-icon>
         <v-dialog v-model="dialog" max-width="700px">
@@ -31,9 +30,8 @@
               </v-list-item-avatar>
               <span class="headline">Details</span>
             </v-card-title>
-            
             <v-divider color="light-blue lighten-2"></v-divider>
-            <!-- <v-card-text> -->
+            <!-- <v-btn dark color="light-blue accent-3" @click="dialog= false">close</v-btn> -->
             <v-list-item two-line>
               <v-list-item-content>
                 <v-list-item-title>{{firstname + " " + lastname}}</v-list-item-title>
@@ -60,49 +58,11 @@
                 <v-list-item-subtitle>Why</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
-            <!-- </v-card-text> -->
-            <v-divider></v-divider>
+            <!-- <v-divider></v-divider> -->
 
             <!-- <p class="font-italic body-2">Received:</p> -->
             <!-- <v-spacer></v-spacer> -->
-            <!-- <v-btn dark color="light-blue accent-3" @click="dialog= false">close</v-btn> -->
-          </v-card>
-        </v-dialog>
-      </template>
-      <template v-slot:item.action="{ item }">
-        <v-btn
-          v-if="!pending"
-          x-small
-          dark
-          color="blue"
-          @click="updateStatus('pending', item)"
-        >Pending</v-btn>
-        <v-btn x-small dark color="orange" @click="updateStatus('approved', item)">Approve</v-btn>
-        <v-dialog v-model="dialog2" max-width="500px">
-          <template v-slot:activator="{ on }">
-            <v-btn x-small dark v-on="on" color="red">Reject</v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <v-avatar class="mr-3">
-                <img src="@/assets/pnlogo.png" id="logo" />
-              </v-avatar>
-              <span class="headline">Reason</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-textarea v-model="reason" outlined label="Reason of rejection"></v-textarea>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" @click="dialog2 = false" text>Cancel</v-btn>
-              <v-btn
-                color="blue darken-1"
-                @click="updateStatus('rejected', item), addReason()"
-                text
-              >Continue</v-btn>
-            </v-card-actions>
+            <!-- <v-btn dark color="light-blue accent-3" @click="dialog=false">close</v-btn> -->
           </v-card>
         </v-dialog>
       </template>
@@ -112,7 +72,7 @@
 
 <script>
 // import RequestCard from "../modules/tibs/RequestContainer.vue";
-import { updateRequest, updateWhy } from "@/actions/requestAxios.js";
+// import { updateRequest, updateWhy } from "@/actions/requestAxios.js";
 
 export default {
   // name: "RequestTable",
@@ -148,7 +108,6 @@ export default {
       { text: "Category", value: "category" },
       { text: "Nedeed on", value: "when" },
       { text: "Batch", value: "batch" },
-      { text: "Actions", value: "action", sortable: false },
       { text: "", value: "info", sortable: false }
     ]
   }),
@@ -178,32 +137,7 @@ export default {
       this.why = item.why;
       this.id = item._id;
     },
-    updateStatus(status, item) {
-        const data = {
-            status: status,
-            statusDate: new Date().toISOString().substr(0, 10),
-        }
-      updateRequest(data, item._id)
-        .then(data => {
-          this.$emit("updateRequest", data.data);
-          setTimeout(
-            () => this.request.splice(this.request.indexOf(item), 1),
-            2000
-          );
-          window.console.log(data.data);
-        })
-        .catch(err => alert(err.message));
-      // setTimeout(() => this.request.splice(this.request.indexOf(item), 1), 2000);
-    },
-    addReason() {
-      updateWhy(this.reason)
-        .then(data => {
-          this.$emit("updateWhy", data.data);
-          this.reason = "";
-          this.dialog2 = false;
-        })
-        .catch(err => alert(err.message));
-    }
+    
   }
 };
 </script>

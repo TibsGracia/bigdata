@@ -12,7 +12,7 @@ import RequestTable from '../modules/tibs/RequestTable.vue'
 import Mostly from '../modules/redgie/MostlyRequested.vue'
 import Stamp from '../modules/redgie/Stamp.vue'
 import unreadRequest from "@/views/UnreadRequests.vue";
-import test from "@/views/test.vue";
+import test2 from "@/modules/tibs/RequestTable.vue";
 import pendingRequest from "@/views/PendingRequests.vue";
 import approvedRequest from "@/views/ApprovedRequests.vue";
 import rejectedRequest from "@/views/RejectedRequests.vue";
@@ -169,9 +169,9 @@ const routes = [{
         component: RequestTable
     },
     {
-        path: "/test",
-        name: "test",
-        component: test
+        path: "/test2",
+        name: "test2",
+        component: test2
     },
     {
         path: '/socket',

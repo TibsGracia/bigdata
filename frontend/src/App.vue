@@ -27,24 +27,23 @@
     </v-app-bar>
     <v-content>
       <div v-if="isLoggedIn && !isStudent">
-      <!-- <div v-if="isLoggedIn && this.$route.name!='student'"> -->
         <div v-if="resized && !isStudent">
           <v-navigation-drawer v-model="drawer" absolute left temporary>
             <Resizedbar />
           </v-navigation-drawer>
           <center>
-            <div class="">
+            <div class="wt95">
               <router-view />
             </div>
           </center>
         </div>
         <div v-else>
           <v-row>
-            <span v-if="isLoggedIn && this.$route.name!='student'">
-              <!-- <Sidebar/> -->
-            </span>
+            <v-col cols="3" v-if="isLoggedIn && this.$route.name != 'student'">
+              <Sidebar />
+            </v-col>
             <v-col class="text-center">
-              <div class="">
+              <div class="wt95">
                 <center>
                   <router-view />
                 </center>
@@ -99,14 +98,17 @@ export default {
         console.log("ok")
       }
     },
-    // isStudent: function() {
-    //   return this.$store.getters.isStudent;
-    // },
     permission: function() {
       return this.$store.getters.permission;
     }
   },
-
+  update(){
+    let myroute = this.$route.name
+    if(myroute === "student"){
+      this.isStudent = true
+    }
+    console.log("app route: ", myroute)
+  },
   methods: {
     handleRoute(route) {
       if (route == "login" || route == "notfound") {
@@ -139,3 +141,4 @@ export default {
   width: 95%;
 }
 </style>
+© 2019 GitHub, Inc.
