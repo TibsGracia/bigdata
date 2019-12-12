@@ -1,118 +1,119 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="request"
-    :search="search"
-    sort-by="calories"
-    absolute
-    class="elevation-1"
-  >
-  <template v-slot:top>
-        <v-toolbar flat class="ma-5 mb-12 pa-5">
-          <!-- <v-spacer></v-spacer> -->
-          <!-- <v-avatar tile right class="mr-2" size="62">
-            <img src="@/assets/pnlogo.png">
-          </v-avatar> -->
-          <v-toolbar-title class="text-center display-2">Pending Request</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field>
-        </v-toolbar>
-      </template>
-    <template v-slot:item.action="{ item }">
-      <v-btn x-small color="orange" dark>Pending</v-btn>
-      <v-btn x-small color="primary" dark>Reject</v-btn>
-      <v-btn x-small color="secondary" dark>Approved</v-btn>
-    </template>
-    <template v-slot:item.info="{ item }">
-      <!-- <v-icon small>mdi-information</v-icon> -->
-      <v-dialog
-      v-model="dialog"
-      width="500"
-    >
-      <template v-slot:activator="{ on }">
-         <v-icon small  v-on="on">mdi-information</v-icon>
-         <!-- <v-btn
-          color="red lighten-2"
-          dark
-          v-on="on"
-        >
-          Click Me
-        </v-btn> -->
-      </template>
+  <div>
+    <v-data-table :headers="headers" :items="request" class="elevation-1">
+      <!-- <template v-slot:top> -->
 
-      <v-card>
-        <!-- <v-card class="pa-4"> -->
+      <!-- </template> -->
+      <template v-slot:item.info="{ item }">
+        <v-icon small @click="dialog= true, details(item)">mdi-information</v-icon>
+        <v-dialog v-model="dialog" max-width="700px">
+          <v-card class="pa-6">
             <v-card-title class="black--text">
               <v-list-item-avatar tile right size="62">
-                <img src="@/assets/pnlogo.png">
+                <img src="@/assets/pnlogo.png" />
               </v-list-item-avatar>
               <span class="headline">Details</span>
             </v-card-title>
             <v-divider color="light-blue lighten-2"></v-divider>
-        <!-- <v-card-title
-          class="headline grey lighten-2"
-          primary-title
-        >
-          Privacy Policy
-        </v-card-title> -->
-
-        <v-list-item two-line>
+            <!-- <v-btn dark color="light-blue accent-3" @click="dialog= false">close</v-btn> -->
+            <v-list-item two-line>
               <v-list-item-content>
-                <v-list-item-title>dsdsd</v-list-item-title>
+                <v-list-item-title>{{firstname + " " + lastname}}</v-list-item-title>
                 <v-list-item-subtitle>Name</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-list-item two-line>
               <v-list-item-content>
-                <v-list-item-title>sdsds</v-list-item-title>
+                <v-list-item-title>{{email}}</v-list-item-title>
                 <v-list-item-subtitle>Email Address</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
+            <v-divider color="light-blue lighten-2"></v-divider>
+            <h3 class="mt-2">About the Request</h3>
             <v-list-item two-line>
               <v-list-item-content>
-                <v-list-item-title>sdsds</v-list-item-title>
-                <v-list-item-subtitle>Request</v-list-item-subtitle>
+                <v-list-item-title>{{what}}</v-list-item-title>
+                <v-list-item-subtitle>What</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-list-item two-line>
               <v-list-item-content>
-                <v-list-item-title>sdsds</v-list-item-title>
-                <v-list-item-subtitle>Notes</v-list-item-subtitle>
+                <v-list-item-title>{{why}}</v-list-item-title>
+                <v-list-item-subtitle>Why</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
+            <!-- <v-divider></v-divider> -->
 
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-            @click="dialog = false"
-          >
-            I accept
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    </template>
-    
-  </v-data-table>
+            <!-- <p class="font-italic body-2">Received:</p> -->
+            <!-- <v-spacer></v-spacer> -->
+            <!-- <v-btn dark color="light-blue accent-3" @click="dialog=false">close</v-btn> -->
+          </v-card>
+        </v-dialog>
+      </template>
+      <template v-slot:item.action="{ item }">
+        <v-btn
+          v-if="!pending"
+          x-small
+          dark
+          color="blue"
+          @click="updateStatus('pending', item)"
+        >Pending</v-btn>
+        <v-btn x-small dark color="orange" @click="updateStatus('approved', item)">Approve</v-btn>
+        <v-dialog v-model="dialog2" max-width="500px">
+          <template v-slot:activator="{ on }">
+            <v-btn x-small dark v-on="on" color="red">Reject</v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <v-avatar class="mr-3">
+                <img src="@/assets/pnlogo.png" id="logo" />
+              </v-avatar>
+              <span class="headline">Reason</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-textarea v-model="reason" outlined label="Reason of rejection"></v-textarea>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" @click="dialog2 = false" text>Cancel</v-btn>
+              <v-btn
+                color="blue darken-1"
+                @click="updateStatus('rejected', item), addReason()"
+                text
+              >Continue</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </template>
+    </v-data-table>
+  </div>
 </template>
 
 <script>
+// import RequestCard from "../modules/tibs/RequestContainer.vue";
+import { updateRequest, updateWhy } from "@/actions/requestAxios.js";
+
 export default {
-  name: "RequestTable",
+  // name: "RequestTable",
   props: ["request"],
   data: () => ({
-    search: '', 
+    openDetails: false,
+    search: "",
     dialog: false,
+    dialog2: false,
+    firstname: "",
+    lastname: "",
+    email: "",
+    what: "",
+    why: "",
+    id: "",
+    reason: "",
+    display: false,
+    pending: false,
+    rejected: false,
+    // requests: [],
     headers: [
       {
         text: "Date Of Submission",
@@ -129,82 +130,57 @@ export default {
       { text: "Nedeed on", value: "when" },
       { text: "Batch", value: "batch" },
       { text: "Actions", value: "action", sortable: false },
-      { text: "Details", value: "info", sortable: false }
-    ],
-    desserts: [],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    },
-    defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    }
+      { text: "", value: "info", sortable: false }
+    ]
   }),
-
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+  mounted() {
+    let myroute = this.$route.name;
+    if (
+      myroute != "approved" &&
+      myroute != "rejected" &&
+      myroute != "mostly" &&
+      myroute != "stamp"
+    ) {
+      this.display = true;
+    }
+    if (myroute == "pending") {
+      this.pending = true;
+    }
+    if (myroute == "rejected") {
+      this.rejected = true;
+    }
+  },
+  methods: {
+    details(item) {
+      this.firstname = item.firstname;
+      this.lastname = item.lastname;
+      this.email = item.email;
+      this.what = item.what;
+      this.why = item.why;
+      this.id = item._id;
+    },
+    updateStatus(status, item) {
+      updateRequest(status, item._id)
+        .then(data => {
+          this.$emit("updateRequest", data.data);
+          setTimeout(
+            () => this.request.splice(this.request.indexOf(item), 1),
+            2000
+          );
+          window.console.log(data.data);
+        })
+        .catch(err => alert(err.message));
+      // setTimeout(() => this.request.splice(this.request.indexOf(item), 1), 2000);
+    },
+    addReason() {
+      updateWhy(this.reason)
+        .then(data => {
+          this.$emit("updateWhy", data.data);
+          this.reason = "";
+          this.dialog2 = false;
+        })
+        .catch(err => alert(err.message));
     }
   }
-
-  // watch: {
-  //   dialog (val) {
-  //     val || this.close()
-  //   },
-  // },
-
-  // created () {
-  //   this.initialize()
-  // },
-
-  // methods: {
-  //   initialize () {
-  //     this.desserts = [
-  //       {
-  //         firstnname: 'Renzy',
-  //         lastname: 'Verano',
-  //         category: "Personal",
-  //         when: "2019-12-15",
-  //         batch: 2021,
-  //       }
-  //     ]
-  //   },
-
-  //   editItem (item) {
-  //     this.editedIndex = this.desserts.indexOf(item)
-  //     this.editedItem = Object.assign({}, item)
-  //     this.dialog = true
-  //   },
-
-  //   deleteItem (item) {
-  //     const index = this.desserts.indexOf(item)
-  //     confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
-  //   },
-
-  //   close () {
-  //     this.dialog = false
-  //     setTimeout(() => {
-  //       this.editedItem = Object.assign({}, this.defaultItem)
-  //       this.editedIndex = -1
-  //     }, 300)
-  //   },
-
-  //   save () {
-  //     if (this.editedIndex > -1) {
-  //       Object.assign(this.desserts[this.editedIndex], this.editedItem)
-  //     } else {
-  //       this.desserts.push(this.editedItem)
-  //     }
-  //     this.close()
-  //   },
-  // },
 };
 </script>
